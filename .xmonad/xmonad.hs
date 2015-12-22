@@ -49,7 +49,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     [ ((modMask .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf) -- %! Launch terminal
     , ((mod1Mask .|. controlMask, xK_l), spawn "gnome-screensaver-command --lock")
 
-    , ((mod1Mask, xK_space               ), spawn "/usr/bin/gnome-do") -- %! Launch dmenu
+    , ((mod1Mask, xK_space               ), spawn "/usr/bin/synapse") -- %! Launch dmenu
     , ((modMask .|. shiftMask, xK_p     ), spawn "gmrun") -- %! Launch gmrun
     , ((modMask .|. shiftMask, xK_c     ), kill) -- %! Close the focused window
 
@@ -176,6 +176,8 @@ myManageHook = composeAll
           className =? "Vncviewer" --> doFloat
         , className =? "Screenkey" --> doIgnore
         , className =? "screenkey" --> doIgnore
+        , className =? "synapse" --> doIgnore
+        , className =? "Synapse" --> doIgnore
         , className =? "Do" --> doIgnore
         , className =? "Hangouts" --> doIgnore
         , className =? "Firefox"   --> doF (W.shift "6:misc")
