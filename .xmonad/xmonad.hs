@@ -91,12 +91,12 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 
     -- quit, or restart
     --, ((modMask .|. shiftMask, xK_q     ), io (exitWith ExitSuccess)) -- %! Quit xmonad
-    , ((modMask              , xK_q     ), spawn "xmonad --recompile && xmonad --restart") -- %! Restart xmonad
+    --, ((modMask              , xK_q     ), spawn "xmonad --recompile && xmonad --restart") -- %! Restart xmonad
 
     -- media player
 
     , ((modMask, xK_c     ), spawn "banshee --toggle-playing") -- %! Pause banshee
-    , ((modMask, xK_x     ), spawn "/home/minhajuddin/Dropbox/private/scripts/remove-current-song &> /tmp/log") -- %! Remove music from library
+    -- , ((modMask, xK_x     ), spawn "/home/minhajuddin/Dropbox/private/scripts/remove-current-song &> /tmp/log") -- %! Remove music from library
     , ((modMask, xK_v     ), spawn "banshee --next") -- %! next in banshee
     , ((modMask, xK_z     ), spawn "banshee --previous") -- %! previous in banshee
 
@@ -185,7 +185,7 @@ myManageHook = composeAll
     ]
 
 main = do
-    xmproc <- spawnPipe "/usr/bin/xmobar -x 1"
+    xmproc <- spawnPipe "/home/minhajuddin/.cabal/bin/xmobar"
     xmonad $ myBaseConfig
         { manageHook = manageDocks <+> myManageHook -- make sure to include myManageHook definition from above
                         <+> manageHook myBaseConfig
