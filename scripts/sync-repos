@@ -1,0 +1,39 @@
+#!/usr/bin/env ruby
+#cron entry
+# */5 * * * * /bin/bash -l -c 'export SSH_AUTH_SOCK="/tmp/$(ls /tmp | grep keyring)/ssh";/home/minhajuddin/.scripts/sync-repos' >> /tmp/generic.log 2>&1
+require 'rubygems'
+require 'yaml'
+
+`ping -c 1 google.com`
+if $?.exitstatus != 0
+  puts 'UNABLE TO SYNC REPOS AS NW IS DOWN'
+  exit $?.exitstatus
+end
+
+puts 'syncing repositories'
+
+@repos = YAML::load_file File.expand_path( '/home/minhajuddin/.sync-repos')
+
+@repos.each do |repo|
+  path = File.expand_path repo[:path]
+  remotes = repo[:remotes].is_a?(String) ? [repo[:remotes]] : repo[:remotes]
+  unless File.exist? path
+    puts "skipping #{path} as directory not found"
+    next
+  end
+
+  unpushed_commits = `cd #{path} && git log --branches --not --remotes --oneline`.lines
+
+  if unpushed_commits.count == 0
+    puts "#{path} is already synced"
+    next
+  end
+
+  remotes.each do |remote|
+    cmd = "cd #{path} && git push #{remote}"
+    puts "executing: '#{cmd}'"
+    system(cmd)
+  end
+end
+
+puts 'done syncing repositories'

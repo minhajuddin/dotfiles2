@@ -1,0 +1,16 @@
+#!/usr/bin/env ruby
+require 'open-uri'
+require 'tempfile'
+
+puts("invalid args\nUsage: webdiff url1 url2") && exit(-1) if ARGV.count != 2
+
+def save(url)
+  url = url.start_with?("http", "http://") ? url : "http://#{url}"
+  file = open(url)
+end
+
+page1 = save(ARGV[0])
+page2 = save(ARGV[1])
+cmd = "meld #{page1.path} #{page2.path}"
+puts cmd
+system(cmd)
