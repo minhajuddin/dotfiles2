@@ -1,0 +1,10 @@
+--type-add=ruby:ext:haml
+--type-add=js:ext:coffee
+--type-add=css:ext:scss
+--ignore-directory=is:tmp
+--ignore-directory=is:vendor
+--ignore-directory=is:_builds
+--ignore-directory=is:_projects
+--ignore-directory=is:_steps
+--ignore-directory=is:log
+--ignore-file=is:tags

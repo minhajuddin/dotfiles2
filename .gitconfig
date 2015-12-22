@@ -1,0 +1,81 @@
+[color]
+  ui = auto
+  branch = auto
+  diff = auto
+  status = auto
+[color "branch"]
+  current = yellow reverse
+  local = yellow
+  remote = green
+[color "diff"]
+  meta = yellow
+  frag = magenta
+  old = red
+  new = white
+[color "status"]
+  added = green
+  changed = red
+  untracked = yellow
+[user]
+  email = minhajuddin@cosmicvent.com
+  name = Khaja Minhajuddin
+[gui]
+  fontui = -family Consolas -size 12 -weight normal -slant roman -underline 0 -overstrike 0
+[diff]
+	tool = bc3
+[difftool]
+  prompt = 0
+	bc3 = trustExitCode
+[merge]
+	tool = bc3
+[mergetool]
+  prompt = 0
+	bc3 = trustExitCode
+[alias]
+  save = !git add -A . && git commit -m 'savepoint' && echo 'pushing in background' &&b git push
+  du = !cat $(git s | cut -f2 -d' ')
+  meld = difftool --dir-diff --tool=meld
+  c = commit -m
+  ca = commit -a -m
+  cl = clean -f
+  a = add .
+  aa = add -A
+  s = status -s
+  f = fetch
+  fa = fetch --all
+  p = push
+  b = branch
+  l = log
+  lcl = log --graph --pretty=format:'%h -%d %s %cr <%an>' --abbrev-commit --date=relative #git log color less
+  i = init
+  co = checkout
+  m = merge
+  d = diff -w --color-words HEAD
+  dts = difftool --dir-diff --staged
+  vds = difftool --staged --tool=vimdiff
+  ds = diff -w --staged
+  dd = diff --color-words
+  dw = !git d --word-diff=color
+  dt = difftool --tool=kdiff3 --dir-diff
+  amend = commit --amend -C HEAD
+  ll = !git la -20
+  lll = !git la -50
+  up = log --branches --not --remotes --oneline
+  l = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+  la = !git l --all
+  mt = mergetool
+  commit-count = !git log --oneline| wc -l
+  log-mine =log --all --author='Khaja Minhajuddin'
+  log-mine-in-month=!git log  --all --author='Khaja Minhajuddin' --after=$(date +%d-%b-%Y -d "-$(date +%d)days")
+  log-mine-in-week=!git log  --all --author='Khaja Minhajuddin' --after=$(date +%d-%b-%Y -d "-$(date +%u)days")
+  log-in-month=!git log  --all --after=$(date +%d-%b-%Y -d "-$(date +%d)days")
+  log-in-week=!git log  --all --after=$(date +%d-%b-%Y -d "-$(date +%u)days")
+  log-ts=log --date=short --format='%ad, %s, %b'
+  log-tsc=log --date=short --format='%h,%ad, %s, %b'
+  timesheet=log --date=short --format='%ad, %s, %b' --all
+  apple-pick = !sh -c 'git rev-list --reverse "$@" | xargs -n1 git cherry-pick' -
+[core]
+	pager = less -r
+  excludesfile = ~/.gitignore
+[push]
+	default = current
